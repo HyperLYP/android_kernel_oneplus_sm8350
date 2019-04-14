@@ -432,6 +432,7 @@ static void msm_restart_prepare(const char *cmd)
 		qpnp_pon_system_pwr_off(PON_POWER_OFF_HARD_RESET);
 
 	if (cmd != NULL) {
+#if 0
 		if (!strncmp(cmd, "bootloader", 10)) {
 			reason = PON_RESTART_REASON_BOOTLOADER;
 			__raw_writel(0x77665500, restart_reason);
@@ -461,8 +462,11 @@ static void msm_restart_prepare(const char *cmd)
 		} else if (!strncmp(cmd, "edl", 3)) {
 			enable_emergency_dload_mode();
 		} else {
+#endif
 			__raw_writel(0x77665501, restart_reason);
+#if 0
 		}
+#endif
 
 		if (reason && nvmem_cell)
 			nvmem_cell_write(nvmem_cell, &reason, sizeof(reason));
